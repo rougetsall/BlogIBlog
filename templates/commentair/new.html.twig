@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Commentair{% endblock %}
+
+{% block body %}
+    <h1>Create new Commentair</h1>
+
+    {{ include('commentair/_form.html.twig') }}
+
+    <a href="{{ path('commentair_index') }}">back to list</a>
+{% endblock %}

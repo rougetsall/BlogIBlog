@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+       
+    <h1>Bienvenue sur mon blog! ✅</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Contenu</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blog_post in blog_posts %}
+            <tr>
+                <td>  <a href="{{ path('blog_post_show', {'id': blog_post.id}) }}">{{ blog_post.titre }}</a></td>
+                <td>{{ blog_post.contenu|slice(0,30) }}</td>
+                
+             
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+   
+</div>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogPost{% endblock %}
+
+{% block body %}
+    <h1>BlogPost</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ blog_post.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ blog_post.titre }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ blog_post.contenu }}</td>
+            </tr>
+            <tr>
+                <th>Banner</th>
+                <td>{{ blog_post.banner }}</td>
+            </tr>
+            <tr>
+                <th>CreateAt</th>
+                <td>{{ blog_post.createAt ? blog_post.createAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>  <a href="{{ path('blog_post_index_author', {'author': blog_post.author}) }}">{{ blog_post.author }}</a></td>
+            </tr>
+            {% for user in user %}
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="container_messages">
+    <h3>commentaire :</h3>
+    {% for commentaire in blog_post.commentairs |slice(0, 30) %}
+    <h6> Pseudo : {{ commentaire.pseudo}} </h6>
+    <div class="message">
+        <p>{{ commentaire.contenu|nl2br }}</p>
+    </div>
+     {% if is_granted('ROLE_ADMIN') or app.user.username  == blog_post.author %}
+    <a href="{{ path('commentaire_delete', {'id': commentaire.id}) }}">Delete</a>
+    {% endif %}
+        <hr>
+        
+      {% endfor %}
+        {# {{ form_start(form) }}
+            {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+        {{ form_end(form) }} #}
+    </div>
+    <h5><a href="{{ path('commentair_new', {'id': blog_post.id}) }}">Ajoute commentaire</a></h5>
+      <h5> <a href="{{ path('home') }}">list des article</a></h5>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+           <h5> <a href="{{ path('blog_post_index') }}">Mes article </a></h5>
+            {% for user in user %}
+           
+               {% if nameuser == user.name %}
+               <h5> <a href="{{ path('blog_post_edit', {'id': blog_post.id}) }}">edit</a></h5>
+                {{ include('blog_post/_delete_form.html.twig') }}
+               {% endif %}
+             {% endfor %}
+        {% endif %}
+    
+{% endblock %}

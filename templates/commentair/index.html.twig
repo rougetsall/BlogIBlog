@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentair index{% endblock %}
+
+{% block body %}
+    <h1>Commentair index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Pseudo</th>
+                <th>Contenu</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commentair in commentairs %}
+            <tr>
+                <td>{{ commentair.id }}</td>
+                <td>{{ commentair.email }}</td>
+                <td>{{ commentair.pseudo }}</td>
+                <td>{{ commentair.contenu }}</td>
+                <td>
+                    <a href="{{ path('commentair_show', {'id': commentair.id}) }}">show</a>
+                    <a href="{{ path('commentair_edit', {'id': commentair.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('commentair_new') }}">Create new</a>
+{% endblock %}

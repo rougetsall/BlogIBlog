@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentair{% endblock %}
+
+{% block body %}
+    <h1>Commentair</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ commentair.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ commentair.email }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td>{{ commentair.pseudo }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ commentair.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('commentair_index') }}">back to list</a>
+
+    <a href="{{ path('commentair_edit', {'id': commentair.id}) }}">edit</a>
+
+    {{ include('commentair/_delete_form.html.twig') }}
+{% endblock %}
